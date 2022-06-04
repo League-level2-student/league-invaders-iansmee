@@ -15,9 +15,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		    final int GAME = 1;
 		    final int END = 2;
 		    int currentState = MENU;
-		    Timer frameDraw;{
+		    Timer frameDraw;
+		    Rocketship rocketship = new Rocketship(250,700,50,50);
+		    GamePanel(){
 		 frameDraw = new Timer(1000/60,this);
 		 frameDraw.start();}
+		    
 	
 		   void updateMenuState() {
 			   
@@ -41,12 +44,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		   void drawGameState(Graphics g) {
 			   g.setColor(Color.BLACK);
 			   g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
+			   rocketship.draw(g);
 		   }
 		   void drawEndState(Graphics g)  {
 			   g.setColor(Color.RED);
 			   g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
 			   g.setFont(titleFont);
-			   g.drawString("GAME OVER", 200, 400);
+			   g.setColor(Color.YELLOW);
+			   g.drawString("GAME OVER", 150, 200);
+			   g.setFont(other);
+			   g.drawString("You Killed Enemies", 150, 400);
+			   g.drawString("Press ENTER to restart", 150, 600);
 		   }
 	
 		   
@@ -76,7 +84,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}else if(currentState == END){
 		    updateEndState();
 		}
-		System.out.println("action");
+		
+		repaint();
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -94,17 +103,21 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		    }
 		}   
 		if(currentState == GAME) {
-			if (e.getKeyCode()==KeyEvent.VK_UP) {
+			if (e.getKeyCode()==KeyEvent.VK_UP && rocketship.x <800) {
 			    System.out.println("UP");
+			   rocketship.up();
 			}
 			if (e.getKeyCode()==KeyEvent.VK_DOWN) {
 			    System.out.println("DOWN");
+			    rocketship.down();
 			}
 			if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
 			    System.out.println("RIGHT");
+			    rocketship.right();
 			}
 			if (e.getKeyCode()==KeyEvent.VK_LEFT) {
 			    System.out.println("LEFT");
+			    rocketship.left();
 			}
 		}
 	}
