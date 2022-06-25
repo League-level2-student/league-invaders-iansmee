@@ -1,3 +1,4 @@
+import java.awt.Graphics;
 
 public class Projectile extends GameObject {
 
@@ -8,7 +9,7 @@ public class Projectile extends GameObject {
 void update() {
 	y -=speed;
 }
-void draw() {
+void draw(Graphics g) {
 	
 }
 }
