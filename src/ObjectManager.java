@@ -3,6 +3,7 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 public class ObjectManager implements ActionListener {
@@ -13,6 +14,34 @@ Random random = new Random();
 	ObjectManager(Rocketship rocket){
 		this.rocket = rocket;
 	}
+	
+	
+	
+	void checkCollision(){
+		for (int i = 0; i < aliens.size(); i++) {
+			if(rocket.CollisionBox.intersects(aliens.get(i).CollisionBox)) {
+				aliens.get(i).isActive = false;
+				rocket.isActive = false;
+			}
+			for (int j = 0; j < projectiles.size(); j++) {
+				if(projectiles.get(j).CollisionBox.intersects(aliens.get(i).CollisionBox)) {
+					aliens.get(i).isActive = false;
+					projectiles.get(j).isActive = false;
+				}
+			}
+		}
+			}	
+			
+			
+			
+		
+	
+	
+	
+	
+	
+	
+	
 	
 	void addProjectile(Projectile projectile) {
 		projectiles.add(projectile);
@@ -26,8 +55,14 @@ Random random = new Random();
 			aliens.get(i).update();
 			if(aliens.get(i).y>LeagueInvaders.HEIGHT) {
 				aliens.get(i).isActive = false;
+				
 			}	
-		}
+		}checkCollision();
+				purgeObjects();
+				
+				rocket.update();
+				
+				
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles.get(i).update();
 			if(projectiles.get(i).y<0) {

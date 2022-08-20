@@ -32,6 +32,7 @@ public static BufferedImage image;
 	
 void update() {
 	y -=speed;
+	super.update();
 }
 void draw(Graphics g) {
 	if (gotImage) {
