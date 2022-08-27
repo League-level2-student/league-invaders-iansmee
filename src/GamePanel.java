@@ -91,8 +91,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			   g.setColor(Color.YELLOW);
 			   g.drawString("GAME OVER", 150, 200);
 			   g.setFont(other);
-			   g.drawString("You Killed Enemies", 150, 400);
+			   g.drawString("You Killed " +ObjectManager.getScore()+" Enemies", 150, 400);
 			   g.drawString("Press ENTER to restart", 150, 600);
+			   
 		   }
 	
 		   
@@ -141,6 +142,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (e.getKeyCode()==KeyEvent.VK_ENTER) {
 		    
 		    if (currentState == END) {
+		    	rocketship = new Rocketship(250,700,50,50);
+		    	ObjectManager = new ObjectManager(rocketship);
 		        currentState = MENU;
 		    } else {
 		        currentState++;
@@ -154,19 +157,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	        	
 	        
 			if (e.getKeyCode()==KeyEvent.VK_UP && rocketship.y >0) {
-			    System.out.println("UP");
+			    
 			   rocketship.up();
 			}
 			if (e.getKeyCode()==KeyEvent.VK_DOWN && rocketship.y < 750) {
-			    System.out.println("DOWN");
+			   
 			    rocketship.down();
 			}
 			if (e.getKeyCode()==KeyEvent.VK_RIGHT && rocketship.x < 450) {
-			    System.out.println("RIGHT");
+			    
 			    rocketship.right();
 			}
 			if (e.getKeyCode()==KeyEvent.VK_LEFT && rocketship.x > 0) {
-			    System.out.println("LEFT");
+			    
 			    rocketship.left();
 			}
 		}
